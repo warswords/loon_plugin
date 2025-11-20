@@ -1,7 +1,7 @@
 #!name= 去广告 - 美团系
 #!desc= 移除美团、大众点评、美团外卖的开屏、弹窗及横幅广告。提取自 Blackmatrix7 规则集。
 #!author= blackmatrix7 (Extracted)
-#!icon= https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/icon/loon/MeiTuan.png
+#!icon= https://fastly.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/icon/color/meituan.png
 #!date= 2025-11-20
 
 [Rewrite]
@@ -33,4 +33,5 @@
 ^https?:\/\/www\.meituan\.com\/api\/v\d\/appstatus\? - reject
 
 [MITM]
+
 hostname = p*.meituan.net, img.meituan.net, s3plus.meituan.net, flowplus.meituan.net, wmapi.meituan.com, peisongapi.meituan.com, www.meituan.com
