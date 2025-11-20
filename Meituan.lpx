@@ -1,0 +1,36 @@
+#!name= 去广告 - 美团系
+#!desc= 移除美团、大众点评、美团外卖的开屏、弹窗及横幅广告。提取自 Blackmatrix7 规则集。
+#!author= blackmatrix7 (Extracted)
+#!icon= https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/icon/loon/MeiTuan.png
+#!date= 2025-11-20
+
+[Rewrite]
+# >>> 美团/点评 通用静态资源与流媒体广告 <<<
+# 拦截开屏/活动视频素材 (Flowplus/S3plus)
+^https?:\/\/(s3plus|flowplus)\.meituan\.net\/v\d\/\w+\/linglong\/\w+\.(gif|jpg|mp4) - reject
+^https?:\/\/flowplus\.meituan\.net\/v\d\/\w+\/linglong\/\d+\.(gif|jpg|mp4) - reject
+^https?:\/\/s3plus\.meituan\.net\/.*\/brandcpt-vedio\/.*\?time - reject-200
+
+# 拦截图片广告 (包含点评 dpmobile, adunion, midas)
+^https?:\/\/img\.meituan\.net\/(adunion|display|dpmobile|midas)\/\w+\.(gif|jpg|jpg\.webp)$ - reject
+
+# 拦截 Banner 与 营销图片 (p0/p1.meituan.net)
+^https?:\/\/p\d\.meituan\.net\/(bizad|wmbanner)\/\w+\.jpg - reject
+^https?:\/\/p\d\.meituan\.net\/(bizad|wmbanner|brandCpt)\/\w+\.jpg - reject
+^https?:\/\/p\d\.meituan\.net\/movie\/\w+\.jpg\?may_covertWebp - reject
+
+# >>> 美团外卖相关 <<<
+# 拦截外卖开屏与加载广告 (Wmapi)
+^https?:\/\/wmapi\.meituan\.com\/api\/v\d+\/loadInfo? - reject
+^https?:\/\/wmapi\.meituan\.com\/api\/v\d\/(openscreen\?ad|loadInfo\?|startpicture) - reject-200
+^https?:\/\/wmapi\.meituan\.com\/api\/v\d\/startpicture - reject
+
+# 配送/骑手端相关广告
+^https?:\/\/peisongapi\.meituan\.com\/client\/getInitiateImage - reject-200
+
+# >>> 美团主App相关 <<<
+# App状态与开屏检测
+^https?:\/\/www\.meituan\.com\/api\/v\d\/appstatus\? - reject
+
+[MITM]
+hostname = p*.meituan.net, img.meituan.net, s3plus.meituan.net, flowplus.meituan.net, wmapi.meituan.com, peisongapi.meituan.com, www.meituan.com
